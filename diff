@@ -1,0 +1,1 @@
+git diff -b --no-index main modified

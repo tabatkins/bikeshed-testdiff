@@ -1,0 +1,1 @@
+echo "¶ Normalizing test files..." && python setup.py && echo "¶ Diffing..." && ./diff > diff.txt
