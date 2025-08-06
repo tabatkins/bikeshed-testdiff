@@ -60,10 +60,12 @@ def normalizeFile(text: str) -> None:
     text = removeLine(text, r"\"[^\"]+\": {\"dfnID")
     text = removeLine(text, r"\"[^\"]+\": {\"export")
     text = removeLine(text, r"\"#[^\"]+\": {\"displayText")
+    #text = removeLine(text, r"\s*<p></p>")
     
     ### Add any situation-specific normalizations here.
     text = removeLine(text, r"\s*<tbody>")
     text = re.sub(r"xmlns:xlink", "xlink", text)
+    text = re.sub(r"\s+</p>", "</p>", text)
 
     return text
 
