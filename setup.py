@@ -16,6 +16,7 @@ import re
 
 def run():
     testFolder = os.path.dirname(os.path.realpath(__file__))
+    testFolderName = os.path.basename(testFolder)
 
     for path in findFilePaths(testFolder+"/main-unaltered", ".html"):
         # Read in the unaltered main branch test output from /main-unaltered
@@ -26,17 +27,19 @@ def run():
 
         # Write it out to /main, for diffing
         mainOutput = path.replace("main-unaltered", "main")
+        os.makedirs(os.path.dirname(mainOutput), exist_ok=True)
         with open(mainOutput, 'w', encoding='utf-8') as fh:
             fh.write(text)
 
         # Read in the same file directly from the bikeshed folder,
         # and normalize it.
-        parseInput = path.replace("testdiff/main-unaltered", "bikeshed/tests")
+        parseInput = path.replace(f"{testFolderName}/main-unaltered", "bikeshed/tests")
         with open(parseInput, 'r', encoding='utf-8') as fh:
             text = normalizeFile(fh.read())
 
         # Write it out to /modified, for diffing
         parseOutput = path.replace("main-unaltered", "modified")
+        os.makedirs(os.path.dirname(parseOutput), exist_ok=True)
         with open(parseOutput, 'w+', encoding='utf-8') as fh:
             fh.write(text)
 
