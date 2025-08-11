@@ -68,7 +68,7 @@ def normalizeFile(text: str) -> None:
     ### Add any situation-specific normalizations here.
     text = removeLine(text, r"\s*<tbody>")
     text = re.sub(r"xmlns:xlink", "xlink", text)
-    text = re.sub(r"\s+</p>", "</p>", text)
+    text = re.sub(r"\s+</(\w+)>", r"</\1>", text)
 
     return text
 
